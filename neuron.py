@@ -1,5 +1,6 @@
 import numpy as np
 import activation_functions as activations
+from functools import lru_cache
 
 
 class InsufficientInput(Exception):
@@ -13,8 +14,10 @@ class Neuron:
         self.bias = bias
         self.activation_fn = activation_func
 
-    def activate(self, inputs):
-        return self.sigmoid(self, self.weighted_sum(inputs))
+    @lru_cache(8)
+    def output(self, inputs):
+        self.output = self.activation_fn(self.weighted_sum(inputs))
+        return self.output
 
     def sigmoid(self, value):
         return value

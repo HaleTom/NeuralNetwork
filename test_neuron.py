@@ -30,3 +30,7 @@ def test_weighted_sum_inputs_not_matching_weights(
     assert len(two_weights) != len(three_weights_plus_bias.weights.tolist())
     with pytest.raises(InsufficientInput):
         three_weights_plus_bias.weighted_sum(two_weights)
+
+
+def test_output(three_weights_plus_bias):
+    assert three_weights_plus_bias.output((-1, 0.5, -1/3)) == sigmoid(5)
