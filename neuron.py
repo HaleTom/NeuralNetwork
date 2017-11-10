@@ -1,4 +1,5 @@
 import numpy as np
+import activation_functions as activations
 
 
 class InsufficientInput(Exception):
@@ -7,14 +8,16 @@ class InsufficientInput(Exception):
 
 class Neuron:
 
-    def __init__(self, weights, bias=0):
+    def __init__(self, weights, bias=0, activation_func=activations.sigmoid):
         self.weights = np.array(weights)
-        print(weights)
-        print(len(self.weights))
         self.bias = bias
+        self.activation_fn = activation_func
 
     def activate(self, inputs):
-        pass
+        return self.sigmoid(self, self.weighted_sum(inputs))
+
+    def sigmoid(self, value):
+        return value
 
     def weighted_sum(self, inputs):
         if len(inputs) != len(self.weights):
