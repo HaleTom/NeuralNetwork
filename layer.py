@@ -25,9 +25,7 @@ class Layer:
     @weights.setter
     def weights(self, weights_matrix):
         if len(weights_matrix) != len(self.neurons):
-            # print(weights_matrix)
-            # print(len(weights_matrix))
-            # print(len(self.neurons))
             raise IndexError("Weights don't fit neurons")
+
         for weights, neuron in zip(weights_matrix, self.neurons):
             neuron.weights = weights
