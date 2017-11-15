@@ -1,3 +1,7 @@
+import numpy as np
+from functools import reduce
+
+
 class UnmatchedInput(Exception):
     pass
 
@@ -13,7 +17,4 @@ class Neuron:
         if len(inputs) != len(self.weights):
             raise UnmatchedInput
 
-        accumulator = 0
-        for (value, weight) in zip(inputs, self.weights):
-            accumulator += value * weight
-        return accumulator
+        return reduce(lambda x, y: x + y[0] * y[1], zip(inputs, self.weights), 0)
