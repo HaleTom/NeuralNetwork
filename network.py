@@ -1,5 +1,6 @@
 from layer import Layer
 from activation_functions import sigmoid
+from functools import reduce
 
 
 class InvalidArchitecture(Exception):
@@ -25,7 +26,4 @@ class Network:
             prev = layer  # Get ready to do it again
 
     def output(self, input):
-        for layer in self.layers:
-            out = layer.output(input)
-            input = out
-        return out
+        return reduce(lambda x, layer: layer.output(x), self.layers, input)
